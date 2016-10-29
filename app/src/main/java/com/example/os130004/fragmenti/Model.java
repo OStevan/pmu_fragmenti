@@ -1,12 +1,11 @@
 package com.example.os130004.fragmenti;
 
-/**
- * Created by os130004 on 10/26/2016.
- */
+import java.io.Serializable;
 
-class Model {
-    private final int rows;
-    private final int columns;
+
+class Model implements Serializable {
+    private int rows;
+    private int columns;
     private boolean content[][];
     private int verticalPosition;
     private int horizontalPosition;
@@ -17,7 +16,7 @@ class Model {
         this.columns = columns;
 
 
-        for (; count > 0;) {
+        for (; count > 0; ) {
             int y = (int) (Math.random() * rows);
             int x = (int) (Math.random() * columns);
 
@@ -85,7 +84,7 @@ class Model {
         return horizontalPosition;
     }
 
-    public int getVerticalPosition() {
+    int getVerticalPosition() {
         return verticalPosition;
     }
 }

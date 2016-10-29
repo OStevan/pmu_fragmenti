@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String KEY_MODEL = "com.example.os130004.fragmenti.Model";
 
     private TextView[][] matrix;
     private Model model;
@@ -19,26 +20,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         matrix = new TextView[N][M];
 
+        if(savedInstanceState != null) {
+            model = (Model) savedInstanceState.get(KEY_MODEL);
+        } else {
+            model = new Model(N, M, 10);
+        }
+
         LinearLayout topLevelLayout = (LinearLayout) findViewById(R.id.top_level_layout);
 
-        model = new Model(N, M, 10);
-
-        for(int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {
 
             LinearLayout row = new LinearLayout(this);
             ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
             row.setOrientation(LinearLayout.HORIZONTAL);
 
 
-            for(int j = 0; j < M; j++) {
+            for (int j = 0; j < M; j++) {
                 matrix[i][j] = new TextView(this);
-                ViewGroup.LayoutParams columParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-                row.addView(matrix[i][j], columParams);
+                matrix[i][j].setText(model.getValue(i, j) ? "*" : "");
+                ViewGroup.LayoutParams columnParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+                row.addView(matrix[i][j], columnParams);
             }
 
             topLevelLayout.addView(row, params);
         }
-        refreshView();
     }
 
     public void up(View view) {
@@ -64,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         if (model.right()) {
             refreshView();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(KEY_MODEL, model);
     }
 
     private void refreshView() {

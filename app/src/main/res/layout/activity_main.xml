@@ -22,7 +22,7 @@
         android:id="@+id/up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="/\"
+        android:text="@string/up"
         android:layout_above="@+id/left"
         android:layout_centerHorizontal="true"
         android:onClick="up"/>
@@ -33,22 +33,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="V"
+        android:text="@string/down"
         android:onClick="down"/>
     <Button
         android:id="@+id/left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/down"
+        android:layout_toStartOf="@id/down"
         android:layout_above="@id/down"
-        android:text="L"
+        android:text="@string/left"
         android:onClick="left"/>
     <Button
         android:id="@+id/right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/down"
+        android:layout_toEndOf="@id/down"
         android:layout_above="@id/down"
-        android:text="R"
+        android:text="@string/right"
         android:onClick="right"/>
 </RelativeLayout>
