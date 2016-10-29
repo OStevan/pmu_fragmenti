@@ -9,11 +9,13 @@ class Model implements Serializable {
     private boolean content[][];
     private int verticalPosition;
     private int horizontalPosition;
+    private int count;
 
     Model(int rows, int columns, int count) {
         content = new boolean[rows][columns];
         this.rows = rows;
         this.columns = columns;
+        this.count = count;
 
 
         for (; count > 0; ) {
@@ -73,18 +75,23 @@ class Model implements Serializable {
     private void collectField() {
         if (content[verticalPosition][horizontalPosition]) {
             content[verticalPosition][horizontalPosition] = false;
+            count--;
         }
     }
 
-    boolean getValue(int i, int j) {
+    boolean valueAtPosition(int i, int j) {
         return content[i][j];
     }
 
-    int getHorizontalPosition() {
+    int horizontalPosition() {
         return horizontalPosition;
     }
 
-    int getVerticalPosition() {
+    int verticalPosition() {
         return verticalPosition;
+    }
+
+    boolean finished() {
+        return count == 0;
     }
 }

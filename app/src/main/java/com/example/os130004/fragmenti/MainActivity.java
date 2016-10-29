@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String KEY_MODEL = "com.example.os130004.fragmenti.Model";
+public class MainActivity extends AppCompatActivity implements Controller.Refreshable{
+    private static final String KEY_CONTROLLER = "com.example.os130004.fragmenti.Controller";
 
     private TextView[][] matrix;
-    private Model model;
+    private Controller controller;
     private static final int M = 10;
     private static final int N = 10;
     @Override
@@ -21,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
         matrix = new TextView[N][M];
 
         if(savedInstanceState != null) {
-            model = (Model) savedInstanceState.get(KEY_MODEL);
+            controller = (Controller) savedInstanceState.get(KEY_CONTROLLER);
+            assert controller != null;
+            controller.setRefreshable(this);
         } else {
-            model = new Model(N, M, 10);
+            controller = new Controller(this);
         }
 
         LinearLayout topLevelLayout = (LinearLayout) findViewById(R.id.top_level_layout);
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (int j = 0; j < M; j++) {
                 matrix[i][j] = new TextView(this);
-                matrix[i][j].setText(model.getValue(i, j) ? "*" : "");
+                matrix[i][j].setText(controller.valueAtPosition(i, j) ? "*" : "");
                 ViewGroup.LayoutParams columnParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
                 row.addView(matrix[i][j], columnParams);
             }
@@ -47,46 +50,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void up(View view) {
-        if (model.up()) {
-            refreshView();
-        }
+        controller.up();
     }
 
     public void down(View view) {
-        if  (model.down()) {
-            refreshView();
-        }
+        controller.down();
     }
 
     public void left(View view) {
-        if (model.left()) {
-            refreshView();
-        }
+        controller.left();
     }
 
     public void right(View view) {
-
-        if (model.right()) {
-            refreshView();
-        }
+        controller.right();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(KEY_MODEL, model);
+        outState.putSerializable(KEY_CONTROLLER, controller);
     }
 
-    private void refreshView() {
+    public void refresh() {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                if(model.getValue(i, j)) {
+                if(controller.valueAtPosition(i, j)) {
                     matrix[i][j].setText("*");
                 } else {
                     matrix[i][j].setText("");
                 }
             }
         }
-        matrix[model.getVerticalPosition()][model.getHorizontalPosition()].setText("+");
+        matrix[controller.verticalPosition()][controller.horizontalPosition()].setText("+");
+        if (controller.finished()) {
+            Toast toast = Toast.makeText(this, "No more stars.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
