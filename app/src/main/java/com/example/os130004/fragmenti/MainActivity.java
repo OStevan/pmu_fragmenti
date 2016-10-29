@@ -1,6 +1,5 @@
 package com.example.os130004.fragmenti;
 
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -77,6 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        matrix[model.getX()][model.getX()].setText("+");
+        matrix[model.getVerticalPosition()][model.getHorizontalPosition()].setText("+");
     }
 }
