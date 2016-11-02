@@ -5,6 +5,43 @@ import java.io.Serializable;
 
 class Controller implements Serializable {
 
+    void rotateRight() {
+        model.rotateRight();
+        refreshable.refresh();
+    }
+
+    void rotateLeft() {
+        model.rotateLeft();
+        refreshable.refresh();
+    }
+
+    void move() {
+        if (model.move()) {
+            refreshable.refresh();
+        }
+    }
+
+    String direction() {
+        return model.direction();
+    }
+
+    boolean fragmentChoice() {
+        return model.fragmentChoice();
+    }
+
+    void switchFragment() {
+        model.switchFragment();
+        refreshable.refresh();
+    }
+
+    void fragmentChanged() {
+        model.fragmentChanged();
+    }
+
+    boolean changeFragment() {
+        return model.changeFragment();
+    }
+
     interface Refreshable {
         void refresh();
     }

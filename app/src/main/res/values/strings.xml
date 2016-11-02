@@ -4,4 +4,11 @@
     <string name="down">DOWN</string>
     <string name="left">LEFT</string>
     <string name="right">RIGHT</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="direction">Direction</string>
+    <string name="rotate">Rotate</string>
+    <string name="rol">ROL</string>
+    <string name="ror">ROR</string>
+    <string name="move">MOVE</string>
 </resources>

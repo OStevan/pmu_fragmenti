@@ -9,46 +9,51 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.os130004.fragmenti.MainActivity">
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/radio_direction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="@string/direction"
+            android:onClick="switchFragment"/>
+        <RadioButton
+            android:id="@+id/radio_rotation"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:onClick="switchFragment"
+            android:text="@string/rotate"/>
+    </RadioGroup>
 
     <LinearLayout
+        android:layout_below="@id/radio_group"
+        android:layout_alignParentBottom="true"
         android:id="@+id/top_level_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/up"
-        android:orientation="vertical" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/up"
-        android:layout_above="@+id/left"
-        android:layout_centerHorizontal="true"
-        android:onClick="up"/>
+        <LinearLayout
+            android:id="@+id/matrix"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical" />
 
-    <Button
-        android:id="@+id/down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="@string/down"
-        android:onClick="down"/>
-    <Button
-        android:id="@+id/left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/down"
-        android:layout_above="@id/down"
-        android:text="@string/left"
-        android:onClick="left"/>
-    <Button
-        android:id="@+id/right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/down"
-        android:layout_above="@id/down"
-        android:text="@string/right"
-        android:onClick="right"/>
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
 </RelativeLayout>
